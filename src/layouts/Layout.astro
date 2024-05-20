@@ -85,10 +85,10 @@ const businessInformation = await getData('business_information');
     />
     <main class='bg-neutral-8'>
       <PageBuilder pageData={pageData} />
-      <ReviewCards
+      <!-- <ReviewCards
         heading='Reviews'
         client:idle
-      />
+      /> -->
     </main>
     <ContactSection
       businessName={businessInformation[0].business_name}
@@ -136,11 +136,11 @@ const businessInformation = await getData('business_information');
           @apply scale-[1.25];
         }
       }
-
+/*
       .scroller {
         scrollbar-color: hsl(0, 100%, 25%) hsl(240, 5%, 8%);
       }
-
+*/
       /* Hide scrollbar for Chrome, Safari and Opera */
       .no-scrollbar::-webkit-scrollbar {
         display: none;
