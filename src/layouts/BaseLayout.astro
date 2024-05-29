@@ -44,7 +44,7 @@ const businessInformation = await getData('business_information');
       }
     </title>
     <ViewTransitions />
-    <!-- structed data -->
+    <!-- TODO structed data -->
     <script type='application/ld+json'>
       {
         "@context": "http://schema.org",
@@ -140,91 +140,9 @@ const businessInformation = await getData('business_information');
       socials={businessInformation[0].socials}
     />
     <style is:global>
-      @tailwind base;
-
-      @media (prefers-color-scheme: light) {
-        html {
-          color-scheme: dark;
-        }
-      }
-
-      @layer base {
-        @keyframes fadeInUp {
-          0% {
-            opacity: 0;
-            transform: translateY(20vh);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        ul {
-          @apply ms-8 list-disc text-base leading-loose lg:text-lg lg:leading-loose;
-        }
-
-        @keyframes slide {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-100%);
-          }
-        }
-
-        .slide-animation {
-          animation: slide 60s linear infinite;
-        }
-
-        .no-animation {
-          animation: none;
-        }
-
-        .markdown > p {
-          @apply mb-8;
-        }
-
-        .markdown > p > a,
-        .markdown > ul > li > a {
-          @apply text-primary-md2 hover:text-primary-md3 hover:underline;
-        }
-
-        .fade-in-up {
-          animation: fadeInUp 0.75s ease-out;
-        }
-        .card-zoom {
-          @apply relative overflow-hidden;
-        }
-        .card-zoom-image {
-          @apply absolute h-full w-full transform bg-cover bg-center transition-all duration-500 ease-in-out;
-        }
-        .card-zoom-text {
-          @apply absolute transform transition-all duration-500 ease-in-out;
-        }
-        .zoom-in {
-          @apply scale-[1.25];
-        }
-      }
-
-      .scroller {
-        scrollbar-color: hsl(0, 100%, 25%) hsl(240, 5%, 8%);
-      }
-
-      .scroller-sm {
-        scrollbar-color: hsl(240, 5%, 46%) hsl(240, 5%, 8%);
-        scrollbar-width: thin;
-      }
-
-      /* Hide scrollbar for Chrome, Safari and Opera */
-      .no-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-
-      /* Hide scrollbar for IE, Edge and Firefox */
-      .no-scrollbar {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
+      :root {
+        --primary-hue: 180;
+        --neutral-hue: 240;
       }
 
       body {

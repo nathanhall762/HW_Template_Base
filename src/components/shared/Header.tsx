@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Icon } from '@iconify-icon/react';
 import { initAnalytics } from '../../firebase';
+import SuperHeader from './SuperHeader';
 
 interface Nav {
   link: string;
@@ -91,64 +92,23 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className=''>
-      <div className={`top-0 z-50 h-[15vh] bg-neutral-9`}></div>
+      <div className={`top-0 z-50 h-[9vh] bg-primary-dk1`}></div>
       <div
-        className={`fixed top-0 z-50 w-full bg-neutral-9 transition-all duration-fast ease-in-out ${isScrolled ? 'h-[9vh]' : 'h-[15vh]'}`}
+        className={`fixed top-0 z-50 w-full bg-primary-dk1 transition-all duration-fast ease-in-out ${isScrolled ? 'h-[9vh]' : 'h-[9vh]'}`}
       >
         {/* super header */}
-        <div
-          className={`flex overflow-hidden border-neutral-6 text-xs transition-all duration-fast lg:flex-row-reverse ${isScrolled ? 'h-0 border-b-0' : 'h-[6vh] border-b-[1px]'}`}
-        >
-          <div className='flex flex-grow items-center justify-center border-r-[1px] border-neutral-6'>
-            <a
-              className='group flex items-center justify-center gap-2 lg:gap-4'
-              href={`mailto:${email}}`}
-              target='_blank'
-            >
-              <Icon
-                icon='mdi:email'
-                className='text-xl text-primary-md1 transition-all duration-fast group-hover:text-primary-md2'
-              />
-              <span className='hidden text-center text-xs text-neutral-1 transition-all duration-fast group-hover:scale-md group-hover:underline lg:inline dark:text-neutral-1'>
-                {email}
-              </span>
-            </a>
-          </div>
-          <div className='flex flex-grow items-center justify-center border-r-[1px] border-neutral-6'>
-            <a
-              className='group flex items-center justify-center gap-2 lg:gap-4'
-              href={addressLink}
-              target='_blank'
-            >
-              <Icon
-                icon='mdi:map-marker'
-                className='text-xl text-primary-md1 transition-all duration-fast group-hover:text-primary-md2'
-              />
-              <span className='hidden text-center text-xs text-neutral-1 transition-all duration-fast group-hover:scale-md group-hover:underline lg:inline dark:text-neutral-1'>
-                {address}
-              </span>
-            </a>
-          </div>
-          <div className='flex flex-grow items-center justify-center border-neutral-6 lg:border-r-[1px]'>
-            <a
-              className='group flex items-center justify-center gap-2 lg:gap-4'
-              href={`tel:${phone}`}
-            >
-              <Icon
-                icon='mdi:phone'
-                className='text-xl text-primary-md1 transition-all duration-fast group-hover:text-primary-md2'
-              />
-              <span className=' text-neutral-1 transition-all duration-fast group-hover:scale-md group-hover:underline dark:text-neutral-1'>
-                {formatPhoneNumber(phone)}
-              </span>
-            </a>
-          </div>
-        </div>
+        {/* <SuperHeader
+          phone={phone}
+          address={address}
+          email={email}
+          addressLink={addressLink}
+          isScrolled={isScrolled}
+        /> */}
         <div
           className={`relative top-0 flex h-[9vh] justify-between text-center align-middle shadow-2xl transition-all duration-fast lg:grid lg:grid-cols-12`}
         >
           {/* desktop nav */}
-          <div className='relative flex flex-grow items-center justify-center border-r-[1px] border-neutral-6 bg-neutral-9 lg:col-span-2'>
+          <div className='relative flex flex-grow items-center justify-center border-r-[1px] border-neutral-6 lg:col-span-2'>
             <a href='/'>
               <div className='hover:text-accent overflow-clip text-center text-neutral-1 transition-all duration-fast dark:text-neutral-1'>
                 <img src={logo} alt='logo' className='h-[8vh] py-2' />
