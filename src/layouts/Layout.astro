@@ -1,13 +1,11 @@
 ---
-import Header from '../components/shared/Header';
-import Footer from '../components/shared/Footer';
-import { ViewTransitions } from 'astro:transitions';
 import ContactSection from '../components/shared/ContactSection';
 import type { DocumentData } from 'firebase/firestore';
-import { getData } from '../firebase';
 import ReviewCards from '../components/ReviewCards';
+import type { Review } from '../components/ReviewCards';
+import { getData } from '../firebase';
 import PageBuilder from '../components/shared/PageBuilder.astro';
-import { navs } from '../navMenu';
+import BaseLayout from './BaseLayout.astro';
 
 export interface Item {
   type: string;
@@ -20,181 +18,41 @@ interface Props {
   pageData: DocumentData;
 }
 
+const businessInformation = await getData('business_information');
+
 const { title, metaDescription, pageData } = Astro.props;
 
-const businessInformation = await getData('business_information');
+const testReview: Review = {
+  name: 'Customer Name',
+  authorAttribution: { displayName: 'Customer Name', photoUri: '', uri: '' },
+  originalText: { languageCode: 'en', text: 'The customer\'s review will go here' },
+  publishTime: 'publish time',
+  rating: 5,
+  text: { languageCode: 'en', text: 'The customer\'s review will go here' },
+  relativePublishTimeDescription: 'thsi is great',
+};
+
+let reviews;
+if (import.meta.env.PROD === true) {
+  const { reviewData } = await import('../googleReviews');
+  reviews = reviewData;
+} else {
+  reviews = Array(5).fill(testReview);
+}
+
+const currentPath = Astro.url.pathname;
 ---
 
-<!doctype html>
-<html
-  lang='en'
-  class='scroller bg-neutral-9 font-sans font-light text-neutral-9'>
-  <head>
-    <meta charset='UTF-8' />
-    <meta
-      name='description'
-      content={metaDescription}
-    />
-    <meta
-      name='viewport'
-      content='width=device-width'
-    />
-    <meta
-      name='generator'
-      content={Astro.generator}
-    />
-    <script>
-      if (
-        localStorage.theme === 'dark' ||
-        (!('theme' in localStorage) &&
-          window.matchMedia('(prefers-color-scheme: dark)').matches)
-      ) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      localStorage.theme = 'light';
-      localStorage.theme = 'dark';
-      localStorage.removeItem('theme');
-    </script>
-    <link
-      rel='icon'
-      type='image/png'
-      sizes='32x32'
-      href={businessInformation[0].favicon.favicon_32_x32}
-    />
-    <title>
-      {
-        title
-          ? `${title} - ${businessInformation[0].business_name}`
-          : businessInformation[0].business_name
-      }
-    </title>
-    <ViewTransitions />
-  </head>
-  <body class='bg-ltbg2 dark:bg-dkbg2'>
-    <Header
-      phone={businessInformation[0].business_phone}
-      address={businessInformation[0].business_address}
-      addressLink={businessInformation[0].google_maps_link}
-      email={businessInformation[0].business_contact_email}
-      socials={businessInformation[0].socials}
-      navs={navs.filter((nav) => nav.link !== '/')}
-      logo={businessInformation[0].business_logo}
-      client:load
-    />
-    <main class='bg-neutral-8'>
-      <PageBuilder pageData={pageData} />
-      <!-- <ReviewCards
-        heading='Reviews'
-        client:idle
-      /> -->
-    </main>
-    <ContactSection
-      businessName={businessInformation[0].business_name}
-      businessAddress={businessInformation[0].business_address}
-      businessPhone={businessInformation[0].business_phone}
-      businessEmail={businessInformation[0].business_contact_email}
-      client:idle
-    />
-    <Footer
-      address={businessInformation[0].business_address}
-      copyright=`${businessInformation[0].business_name} 2024`
-      navs={navs}
-      phone={businessInformation[0].business_phone}
-      socials={businessInformation[0].socials}
-      client:idle
-    />
-    <style is:global>
-      @tailwind base;
-
-      @layer base {
-        @keyframes fadeInUp {
-          0% {
-            opacity: 0;
-            transform: translateY(20vh);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .fade-in-up {
-          animation: fadeInUp 0.75s ease-out;
-        }
-        .card-zoom {
-          @apply relative overflow-hidden;
-        }
-        .card-zoom-image {
-          @apply absolute h-full w-full transform bg-cover bg-center transition-all duration-500 ease-in-out;
-        }
-        .card-zoom-text {
-          @apply absolute transform transition-all duration-500 ease-in-out;
-        }
-        .zoom-in {
-          @apply scale-[1.25];
-        }
-      }
-/*
-      .scroller {
-        scrollbar-color: hsl(0, 100%, 25%) hsl(240, 5%, 8%);
-      }
-*/
-      /* Hide scrollbar for Chrome, Safari and Opera */
-      .no-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-
-      /* Hide scrollbar for IE, Edge and Firefox */
-      .no-scrollbar {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-      }
-
-      body {
-        @apply text-neutral-9 dark:text-neutral-1;
-      }
-
-      a {
-        @apply transition-transform duration-fast ease-in-out;
-      }
-
-      a:hover {
-        @apply scale-md;
-      }
-
-      strong {
-        font-weight: bold;
-      }
-
-      h1 {
-        @apply text-3xl font-semibold lg:text-4xl;
-      }
-
-      h2 {
-        @apply text-2xl font-semibold lg:text-3xl;
-      }
-
-      h3 {
-        @apply text-xl font-semibold lg:text-2xl;
-      }
-
-      h4 {
-        @apply text-lg font-semibold lg:text-xl;
-      }
-
-      h5 {
-        @apply text-base font-semibold lg:text-lg;
-      }
-
-      h6 {
-        @apply text-base font-semibold lg:text-lg;
-      }
-
-      p {
-        @apply text-base leading-loose lg:text-lg lg:leading-loose;
-      }
-    </style>
-  </body><!-- custom animation keyframes and other global stuffs -->
-</html>
+<BaseLayout title={title} metaDescription={metaDescription}>
+  <PageBuilder pageData={pageData} />
+  <slot />
+  <ReviewCards heading='Reviews' reviews={reviews} />
+  <ContactSection
+    businessName={businessInformation[0].business_name}
+    businessAddress={businessInformation[0].business_address}
+    businessPhone={businessInformation[0].business_phone}
+    businessEmail={businessInformation[0].business_contact_email}
+    currentPath={currentPath}
+    client:idle
+  />
+</BaseLayout>
