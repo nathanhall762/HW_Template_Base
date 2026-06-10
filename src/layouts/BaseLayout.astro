@@ -27,10 +27,10 @@ const businessInformation = await getData('business_information');
 >
   <head>
     <meta charset='UTF-8' />
-    <meta name='description' content={metaDescription} />
+    <!-- <meta name='description' content={metaDescription} /> -->
     <meta name='viewport' content='width=device-width' />
     <meta name='generator' content={Astro.generator} />
-    <link
+    <!-- <link
       rel='icon'
       type='image/png'
       sizes='32x32'
@@ -42,7 +42,7 @@ const businessInformation = await getData('business_information');
           ? `${title} - ${businessInformation[0].business_name}`
           : businessInformation[0].business_name
       }
-    </title>
+    </title> -->
     <ViewTransitions />
     <!-- TODO structed data -->
     <script type='application/ld+json'>
@@ -118,7 +118,7 @@ const businessInformation = await getData('business_information');
     </script>
   </head>
   <body>
-    <Header
+    <!-- <Header
       phone={businessInformation[0].business_phone}
       address={businessInformation[0].business_address}
       addressLink={businessInformation[0].google_maps_link}
@@ -127,18 +127,18 @@ const businessInformation = await getData('business_information');
       navs={navs.filter((nav) => nav.link !== '/')}
       logo={businessInformation[0].business_logo}
       client:load
-    />
+    /> -->
     <main class='bg-neutral-8'>
       <slot />
     </main>
-    <Footer
+    <!-- <Footer
       address={businessInformation[0].business_address}
       copyright=`${businessInformation[0].business_name} 2024`
       email={businessInformation[0].business_contact_email}
       navs={navs}
       phone={businessInformation[0].business_phone}
       socials={businessInformation[0].socials}
-    />
+    /> -->
     <style is:global>
       :root {
         --primary-hue: 180;
