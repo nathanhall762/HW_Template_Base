@@ -8,7 +8,8 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "prettier -w **/*.tsx"
+    "lint": "prettier -w **/*.tsx",
+    "cms": "cd my-cms && npm run dev & npm run dev"
   },
   "dependencies": {
     "@astrojs/check": "^0.4.1",

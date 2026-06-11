@@ -13,12 +13,12 @@ interface Nav {
 }
 
 interface HeaderProps {
-  phone: string;
-  address: string;
-  email: string;
-  logo: string;
-  socials: { link: string; type: string }[];
-  addressLink: string;
+  phone?: string;
+  address?: string;
+  email?: string;
+  logo?: string;
+  socials?: { link: string; type: string }[];
+  addressLink?: string;
   navs: Nav[];
 }
 
@@ -89,6 +89,8 @@ const Header: React.FC<HeaderProps> = ({
     // open subnav if subpages are present for nav
     setSubNavOpen(selectedNav?.subpages ? selectedNav : undefined);
   };
+
+  console.log(navs);
 
   return (
     <header className=''>
@@ -221,9 +223,9 @@ const Header: React.FC<HeaderProps> = ({
                   icon='akar-icons:phone'
                   className='text-2xl text-primary-md1 transition-all duration-fast group-hover:text-primary-md2'
                 />
-                <span className='hidden text-justify text-neutral-1 transition-all duration-fast group-hover:scale-md group-hover:underline xl:inline dark:text-neutral-1'>
+                {/* <span className='hidden text-justify text-neutral-1 transition-all duration-fast group-hover:scale-md group-hover:underline xl:inline dark:text-neutral-1'>
                   {formatPhoneNumber(phone)}
-                </span>
+                </span> */}
               </a>
             </div>
             <a href='#contact' className='flex self-center'>

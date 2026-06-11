@@ -35,6 +35,7 @@ export function initAnalytics() {
     getAnalytics(app);
   }
 }
+
 export const getData = async (
   collectionName: string,
   slug?: string
@@ -42,10 +43,11 @@ export const getData = async (
   let q;
 
   if (slug) {
+    // If we're passing a url slug, that means we are getting a Page from the Page collection
     // If a category filter is provided, create a query with a where filter
     q = query(collection(db, collectionName), where('slug', '==', slug));
   } else {
-    // If no category is provided, fetch all documents from the specified collection
+    // Otherwise, we are getting the business information
     q = collection(db, collectionName);
   }
 

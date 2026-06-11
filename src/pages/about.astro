@@ -1,8 +1,9 @@
 ---
-import Layout from '../layouts/Layout.astro';
 import type { DocumentData } from 'firebase/firestore';
 import { getData } from '../firebase';
+import PageLayout from '../layouts/PageLayout.astro';
 
+// get url slug from this file name, the page name
 const slug = Astro.url.pathname.replace(/^\/|\/$/g, '');
 
 const data = await getData('pages', slug);
@@ -10,7 +11,7 @@ const pageData: DocumentData = data[0];
 // console.log(`pageData`, pageData.seo_metadata);
 ---
 
-<Layout
+<PageLayout
   title={pageData.title}
   metaDescription={pageData.seo_metadata.meta_description}
   pageData={pageData}

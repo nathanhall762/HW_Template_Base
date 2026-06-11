@@ -3,7 +3,6 @@ import Header from '../components/shared/Header';
 import Footer from '../components/shared/Footer';
 import { ViewTransitions } from 'astro:transitions';
 import { getData } from '../firebase';
-import { navs } from '../navMenu';
 
 export interface Item {
   type: string;
@@ -15,9 +14,18 @@ interface Props {
   metaDescription: string;
 }
 
+// Get page names for nav bar
+const navs = (await getData('pages'))
+  .filter((page) => page.slug !== 'home')
+  .map((page) => ({
+    name: page.title,
+    link: `/${page.slug}`,
+  }));
+
 const { title, metaDescription } = Astro.props;
 
 const businessInformation = await getData('business_information');
+const business = businessInformation[0];
 ---
 
 <!doctype html>
@@ -27,22 +35,22 @@ const businessInformation = await getData('business_information');
 >
   <head>
     <meta charset='UTF-8' />
-    <!-- <meta name='description' content={metaDescription} /> -->
+    <meta name='description' content={metaDescription} />
     <meta name='viewport' content='width=device-width' />
     <meta name='generator' content={Astro.generator} />
-    <!-- <link
+    <link
       rel='icon'
       type='image/png'
       sizes='32x32'
-      href={businessInformation[0].favicon.favicon_32_x32}
+      href={business?.favicon.favicon_32_x32}
     />
     <title>
       {
         title
-          ? `${title} - ${businessInformation[0].business_name}`
-          : businessInformation[0].business_name
+          ? `${title} - ${business?.business_name}`
+          : business?.business_name
       }
-    </title> -->
+    </title>
     <ViewTransitions />
     <!-- TODO structed data -->
     <script type='application/ld+json'>
@@ -118,27 +126,27 @@ const businessInformation = await getData('business_information');
     </script>
   </head>
   <body>
-    <!-- <Header
-      phone={businessInformation[0].business_phone}
-      address={businessInformation[0].business_address}
-      addressLink={businessInformation[0].google_maps_link}
-      email={businessInformation[0].business_contact_email}
-      socials={businessInformation[0].socials}
+    <Header
+      phone={business?.business_phone}
+      address={business?.business_address}
+      addressLink={business?.google_maps_link}
+      email={business?.business_contact_email}
+      socials={business?.socials}
       navs={navs.filter((nav) => nav.link !== '/')}
-      logo={businessInformation[0].business_logo}
+      logo={business?.business_logo}
       client:load
-    /> -->
+    />
     <main class='bg-neutral-8'>
       <slot />
     </main>
-    <!-- <Footer
-      address={businessInformation[0].business_address}
-      copyright=`${businessInformation[0].business_name} 2024`
-      email={businessInformation[0].business_contact_email}
+    <Footer
+      address={business?.business_address}
+      copyright=`${business?.business_name} 2026`
+      email={business?.business_contact_email}
       navs={navs}
-      phone={businessInformation[0].business_phone}
-      socials={businessInformation[0].socials}
-    /> -->
+      phone={business?.business_phone}
+      socials={business?.socials}
+    />
     <style is:global>
       :root {
         --primary-hue: 180;
