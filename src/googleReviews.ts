@@ -10,7 +10,10 @@ const fetchReviews = async (): Promise<Review[]> => {
     const reviewsData = response.data.reviews;
     return reviewsData;
   } catch (error) {
-    console.error('Error fetching reviews:', error);
+    console.error(
+      'Error fetching reviews (this error should either be resolved, or ReviewCard component should be removed from PageLayout):',
+      error
+    );
     return [];
   }
 };
