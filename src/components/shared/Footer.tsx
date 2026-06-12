@@ -11,9 +11,9 @@ interface Props {
   navs: { link: string; name: string }[];
   address?: string;
   email?: string;
-  socials: { link: string; type: string }[];
-  phone: string;
-  copyright: string;
+  socials?: { link: string; type: string }[];
+  phone?: string;
+  copyright?: string;
 }
 
 const Footer: React.FC<Props> = ({
@@ -40,23 +40,19 @@ const Footer: React.FC<Props> = ({
     <footer className='bg-neutral-9 pb-8 pt-16 text-center text-neutral-1 lg:px-10 dark:bg-neutral-9 dark:text-neutral-1'>
       <div className='flex flex-col items-center justify-evenly lg:flex-row lg:justify-between'>
         <div className='hidden lg:block'>
-          {address && 
-          <a href="https://maps.app.goo.gl/7oMSLMRF64DMPTx8A" target='_blank'>
-            <p className='text-left'>
-              {address}
-              </p>
-          </a>
-            }
-          {email && 
-          <a href={`mailto:${email}`} target='_blank'>
-            <p className='text-left'>
-              {email}
-              </p>
-          </a>
-            }
-          <a href='tel:9189407800'>
-            <p className='text-left'>{formatPhoneNumber(phone)}</p>
-          </a>
+          {address && (
+            <a href='https://maps.app.goo.gl/7oMSLMRF64DMPTx8A' target='_blank'>
+              <p className='text-left'>{address}</p>
+            </a>
+          )}
+          {email && (
+            <a href={`mailto:${email}`} target='_blank'>
+              <p className='text-left'>{email}</p>
+            </a>
+          )}
+          {/* <a href={`tel:${phone?.replace(/\D/g, '')}`}>
+            {formatPhoneNumber(phone)}
+          </a> */}
         </div>
         <div>
           <nav className='mb-8 flex flex-col items-center gap-2 lg:flex-row lg:justify-end lg:gap-8'>
@@ -76,7 +72,7 @@ const Footer: React.FC<Props> = ({
             </a>
           </nav>
           <nav className='mb-8 flex h-10 justify-center gap-4 lg:justify-end lg:gap-8'>
-            {socials.map((social) => (
+            {socials?.map((social) => (
               <a
                 href={social.link}
                 key={social.type}

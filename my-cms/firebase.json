@@ -1,0 +1,13 @@
+{
+  "hosting": {
+    "public": "build",
+    "site": "fart-stack-test",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

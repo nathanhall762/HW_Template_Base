@@ -13,12 +13,12 @@ interface Nav {
 }
 
 interface HeaderProps {
-  phone: string;
-  address: string;
-  email: string;
-  logo: string;
-  socials: { link: string; type: string }[];
-  addressLink: string;
+  phone?: string;
+  address?: string;
+  email?: string;
+  logo?: string;
+  socials?: { link: string; type: string }[];
+  addressLink?: string;
   navs: Nav[];
 }
 
@@ -69,7 +69,7 @@ const Header: React.FC<HeaderProps> = ({
     }
   };
 
-  const formatPhoneNumber = (phone: string) => {
+  const formatPhoneNumber = (phone: string | undefined) => {
     const cleaned = ('' + phone).replace(/\D/g, '');
     const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
     if (match) {
@@ -89,6 +89,8 @@ const Header: React.FC<HeaderProps> = ({
     // open subnav if subpages are present for nav
     setSubNavOpen(selectedNav?.subpages ? selectedNav : undefined);
   };
+
+  console.log(navs);
 
   return (
     <header className=''>
