@@ -20,12 +20,12 @@ import {
 // };
 
 export const firebaseConfig = {
-  apiKey: 'AIzaSyCtRObgRwLfVC2h1XigbP7v7TZ-pB2I4yQ',
-  authDomain: 'fart-stack-test.firebaseapp.com',
-  projectId: 'fart-stack-test',
-  storageBucket: 'fart-stack-test.firebasestorage.app',
-  messagingSenderId: '387040268558',
-  appId: '1:387040268558:web:dea070943fbfd942c8875f',
+  apiKey: 'AIzaSyA6NY2Ys0-reZkHKAFoqcI2Q87WOkQOQcg',
+  authDomain: 'fart-stack-redux.firebaseapp.com',
+  projectId: 'fart-stack-redux',
+  storageBucket: 'fart-stack-redux.firebasestorage.app',
+  messagingSenderId: '964452233195',
+  appId: '1:964452233195:web:03824fa945dcd70b55b3ae',
 };
 
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
