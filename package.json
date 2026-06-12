@@ -3,6 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "install": "npm i && cd my-cms && npm i",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
